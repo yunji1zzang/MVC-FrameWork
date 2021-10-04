@@ -1,18 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="com.springbook.biz.board.impl.BoardDAO" %>
-<%@ page import="com.springbook.biz.board.BoardVO" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 
 <!-- 로그인에 성공한 다음에는 글 목록 화면(getBoardList.jsp)으로 이동한다.
      getBoardList.jsp는 BOARD 테이블에서 게시글을 검색하여
          글 목록 화면을 구성하는 역할을 한다. -->
-<%
-	// 세션에 저장된 글 목록을 꺼낸다.
-	List<BoardVO> boardList = (List) session.getAttribute("boardList");
-	
-%>
-
     
 <!DOCTYPE html>
 <html>
@@ -64,21 +56,18 @@
 				<th bgcolor="orange" width="150">등록일</th>
 				<th bgcolor="orange" width="100">조회수</th>
 			</tr>
-			<%
-				for (BoardVO board : boardList){
-			%>
+		<c:forEach items="${boardList}" var="board">
 			<tr>
-				<td><%= board.getSeq() %></td>
+				<td>${board.seq}</td>
 				<td align="left">
-				   <a href="getBoard.do?seq=<%=board.getSeq()%>">
-				<%=board.getTitle()%></a></td>
-				<td><%= board.getWriter() %></td>
-				<td><%= board.getRegDate() %></td>
-				<td><%= board.getCnt() %></td>
+				   <a href="getBoard.do?seq=${board.seq}">
+				${board.title}</a></td>
+				<td>${board.writer}</td>
+				<td>${board.regDate}</td>
+				<td>${board.cnt}</td>
 			</tr>
-		<%
-				}
-		%>
+		</c:forEach>
+		
 		</table><br>
 		<div class="list">
 			<a href="insertBoard.jsp">새글 등록</a>

@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.springbook.biz.board.impl.BoardDAO" %>
-<%@ page import="com.springbook.biz.board.BoardVO" %>
-
-<%
-	// 세션에 저장된 게시글 정보를 꺼낸다.
-	BoardVO board = (BoardVO) session.getAttribute("board");
-%>
 
 <!-- 글 목록 화면에서 사용자가 클릭한 게시글을 조회하고,
          조회된 게시글의 상세 화면을 제공하는
@@ -49,30 +42,29 @@
 	     게시글 번호로 알야아 한다. 따라서, 상세 화면을 출력할 때 form 태그 밑에
 	   HIDDEN 타입의 input 태그를 추가하여 수정할 게시글 번호도 같이
 	     전달될 수 있도록 코딩해야 한다. -->
-	<input name="seq" type="hidden" value="<%=board.getSeq()%>" />
+	<input name="seq" type="hidden" value="${board.seq}" />
 	<table border="1" cellpadding="0" cellspacing="0">
 		<tr>
 			<td bgcolor="orange" width="70">제목</td>
 			<td align="left"><input name="title" type="text"
-				value="<%=board.getTitle()%>" /></td>
+				value="${board.title}" /></td>
 		</tr>
 		<tr>
 			<td bgcolor="orange">작성자</td>
-			<td align="left"><%=board.getWriter()%></td>			
+			<td align="left">${board.writer}</td>			
 		</tr>
 		<tr>
 			<td bgcolor="orange">내용</td>
 			<td align="left"><textarea rows="10" cols="40"
-				 name="content"><%=board.getContent()%>
-				 </textarea></td>
+				 name="content">${board.content}</textarea></td>
 		</tr>
 		<tr>
 			<td bgcolor="orange">등록일</td>
-			<td align="left"><%=board.getRegDate()%></td>			
+			<td align="left">${board.regDate}</td>			
 		</tr>
 		<tr>
 			<td bgcolor="orange">조회수</td>
-			<td align="left"><%=board.getCnt()%></td>			
+			<td align="left">${board.cnt}</td>			
 		</tr>
 		<tr>
 			<td colspan="2" align="center"><input type="submit"
@@ -89,7 +81,7 @@
          해당 게시글을 삭제 처리하면 된다. 이때 삭제할 게시글 번호를
      deleteBoard_proc.jsp 파일에 알려줘야 하므로
      deleteBoard_proc.jsp 뒤에 seq 파라미터 정보를 추가한다.-->
-<a href="deleteBoard.do?seq=<%=board.getSeq()%>">글삭제
+<a href="deleteBoard.do?seq=${board.seq}">글삭제
 </a>&nbsp;&nbsp;&nbsp;
 <a href="getBoardList.do">글목록</a>
 </div>
